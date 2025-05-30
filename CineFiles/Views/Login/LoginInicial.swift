@@ -1,15 +1,12 @@
-//
-//  LoginView.swift
-//  CineFiles
-//
-//  Created by Pedro Wiezel on 29/05/25.
-//
-
 import SwiftUI
 
 struct LoginInicial: View {
     
+    @State private var correctEmail = "steve@apple.com"
+    @State private var correctPassword = "iheartmoney"
+    
     @State var isPresented : Bool = false
+    
     var body: some View {
         VStack(alignment: .center) {
             
@@ -20,14 +17,13 @@ struct LoginInicial: View {
                 .scaledToFit()
                 .offset(y: isPresented ? -200 : 0)
                 .frame(width: 300, height: 200)
+                .animation(.easeInOut(duration: 0.3), value: isPresented) // Add animation here
             
             Spacer()
             
             VStack(spacing: 24) {
                 Button(action: {
-                    withAnimation {
-                        isPresented = true
-                    }
+                    isPresented = true
                 }) {
                     Text("Fazer login")
                         .frame(maxWidth: .infinity, maxHeight: 50)
@@ -36,12 +32,13 @@ struct LoginInicial: View {
                         .foregroundStyle(.black)
                 }
                 
+                // TODO: Implementar criação de conta
                 Button(action: { }) {
                     Text("Criar uma conta")
                         .frame(maxWidth: .infinity, maxHeight: 50)
-                        .background(.black)
+                        .background(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                 }
             }
         }
@@ -58,13 +55,12 @@ struct LoginInicial: View {
             )
         )
         .sheet(isPresented: $isPresented) {
-            //Spacer().frame(height: 5)
             SignInModal()
                 .presentationDetents([.fraction(0.65)])
         }
     }
 }
 
-#Preview {
+#Preview() {
     LoginInicial()
 }

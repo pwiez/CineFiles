@@ -11,7 +11,9 @@ import SwiftUI
 struct CineFilesApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginInicial()
+            NavigationStack {
+                OnboardingView()
+            }.navigationBarBackButtonHidden(true)
         }
     }
 }
