@@ -17,7 +17,7 @@ struct LoginInicial: View {
                 .scaledToFit()
                 .offset(y: isPresented ? -200 : 0)
                 .frame(width: 300, height: 200)
-                .animation(.easeInOut(duration: 0.3), value: isPresented) // Add animation here
+                .animation(.easeInOut(duration: 0.3), value: isPresented)
             
             Spacer()
             
@@ -36,9 +36,9 @@ struct LoginInicial: View {
                 Button(action: { }) {
                     Text("Criar uma conta")
                         .frame(maxWidth: .infinity, maxHeight: 50)
-                        .background(.white)
+                        .background(Color(red: 0.11, green: 0.29, blue: 1))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                 }
             }
         }
