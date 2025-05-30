@@ -11,7 +11,7 @@ import SwiftUI
 struct CineFilesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginInicial()
         }
     }
 }
