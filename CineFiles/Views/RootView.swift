@@ -15,6 +15,8 @@ enum AppStep {
 
 struct RootView: View {
     @State private var step: AppStep = .onboarding
+    
+    @StateObject private var moviesDataModel = DataModel()
 
     var body: some View {
         switch step {
@@ -28,6 +30,7 @@ struct RootView: View {
             }
         case .home:
             TabBarHomeView()
+                .environmentObject(moviesDataModel)
         }
     }
 }

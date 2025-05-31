@@ -40,4 +40,5 @@ struct TabBarHomeView: View {
 
 #Preview {
     TabBarHomeView()
+        .environmentObject(DataModel())
 }

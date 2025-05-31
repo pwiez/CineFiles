@@ -2,7 +2,11 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State private var movies = DataModel().movies
+    //@State private var movies = DataModel().movies
+    //@State private var movies: [MovieModel] = .movies()
+    
+    @EnvironmentObject var moviesData: DataModel
+    
     @State private var selectedMovieIndex: Int? = nil
     @State private var showAllMovies = false
     @State private var showSavedMovies = false
@@ -64,8 +68,8 @@ struct HomeView: View {
                         .padding(.horizontal, 16)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
-                                ForEach(movies.indices, id: \.self) { index in
-                                    let movie = movies[index]
+                                ForEach(moviesData.movies.indices, id: \.self) { index in
+                                    let movie = moviesData.movies[index]
                                     VStack(alignment: .leading, spacing: 6) {
                                         Button {
                                             selectedMovieIndex = index
@@ -111,7 +115,7 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 16)
                         
-                        let savedMovies = movies.enumerated().filter { $0.element.isSaved }
+                        let savedMovies = moviesData.movies.enumerated().filter { $0.element.isSaved }
                         
                         if savedMovies.isEmpty {
                             Text("Nenhum filme salvo ainda.")
@@ -167,7 +171,7 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 16)
 
-                        let watchedMovies = movies.enumerated().filter { $0.element.isWatched }
+                        let watchedMovies = moviesData.movies.enumerated().filter { $0.element.isWatched }
 
                         if watchedMovies.isEmpty {
                             Text("Nenhum filme assistido ainda.")
@@ -217,27 +221,27 @@ struct HomeView: View {
                 set: { if !$0 { selectedMovieIndex = nil } }
             )) {
                 if let index = selectedMovieIndex {
-                    DetalheFilmeView(movie: $movies[index])
+                    DetalheFilmeView(movie: $moviesData.movies[index])
                 }
             }
             .navigationDestination(isPresented: $showAllMovies) {
                 FilmesGridView(
                     title: "Filmes",
-                    movies: $movies,
+                    movies: $moviesData.movies,
                     filter: { _ in true }
                 )
             }
             .navigationDestination(isPresented: $showWatchedMovies) {
                 FilmesGridView(
                     title: "Assistidos",
-                    movies: $movies,
+                    movies: $moviesData.movies,
                     filter: { $0.isWatched }
                 )
             }
             .navigationDestination(isPresented: $showSavedMovies) {
                 FilmesGridView(
                     title: "Salvos",
-                    movies: $movies,
+                    movies: $moviesData.movies,
                     filter: { $0.isSaved }
                 )
             }
@@ -247,4 +251,5 @@ struct HomeView: View {
 
 #Preview(){
     HomeView()
+        .environmentObject(DataModel())
 }
