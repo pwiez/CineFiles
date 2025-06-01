@@ -170,9 +170,9 @@ struct HomeView: View {
                             }
                         }
                         .padding(.horizontal, 16)
-
+                        
                         let watchedMovies = moviesData.movies.enumerated().filter { $0.element.isWatched }
-
+                        
                         if watchedMovies.isEmpty {
                             Text("Nenhum filme assistido ainda.")
                                 .foregroundColor(.gray)
