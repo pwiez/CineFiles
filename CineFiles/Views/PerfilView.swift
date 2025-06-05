@@ -27,15 +27,6 @@ struct PerfilView: View {
                             .bold()
                             .foregroundColor(.white)
                         HStack {
-                            Button(action: {  }) {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "chevron.left")
-                                        .foregroundColor(.white)
-                                    Text("Voltar")
-                                        .bold()
-                                        .foregroundColor(.white)
-                                }
-                            }
                             Spacer()
                             Image("simbolo-claro")
                                 .resizable()
