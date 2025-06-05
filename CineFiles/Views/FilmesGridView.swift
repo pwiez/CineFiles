@@ -16,14 +16,32 @@ struct FilmesGridView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Spacer()
+            // Custom Nav Bar
+            ZStack {
                 Text(title)
                     .font(.title2.bold())
                     .foregroundColor(.white)
-                    .padding(.vertical, 24)
-                Spacer()
+                HStack {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.white)
+                            Text("Voltar")
+                                .bold()
+                                .foregroundColor(.white)
+                        }
+                    }
+                    Spacer()
+                    Image("simbolo-claro")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32.47258, height: 23.99995)
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 16)
+            .padding(.bottom, 16)
+
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 24) {
                     ForEach(movies.indices.filter { filter(movies[$0]) }, id: \.self) { index in
@@ -56,6 +74,8 @@ struct FilmesGridView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(red: 0.04, green: 0.06, blue: 0.13).ignoresSafeArea())
+        .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
         .navigationDestination(isPresented: Binding(
             get: { selectedMovieIndex != nil },
             set: { if !$0 { selectedMovieIndex = nil } }
